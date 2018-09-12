@@ -196,7 +196,7 @@ defmodule Wobserver2.Page do
 
   Example:
   ```elixir
-  config :wobserver,
+  config :wobserver2,
     pages: [
       {"Example", :example, fn -> %{x:  9} end}
     ]
@@ -206,7 +206,7 @@ defmodule Wobserver2.Page do
   def load_config do
     ensure_table()
 
-    :wobserver
+    :wobserver2
     |> Application.get_env(:pages, [])
     |> Enum.map(&register/1)
   end

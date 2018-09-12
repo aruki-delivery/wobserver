@@ -4,7 +4,7 @@ defmodule Wobserver2.Util.Node.Discovery do
 
   The method used can be set in the config file by setting:
   ```elixir
-  config :wobserver,
+  config :wobserver2,
     discovery: :dns,
   ```
 
@@ -19,14 +19,14 @@ defmodule Wobserver2.Util.Node.Discovery do
 
   No discovery: (is default)
   ```elixir
-  config :wobserver,
+  config :wobserver2,
     port: 80,
     discovery: :none
   ```
 
   Using dns as discovery service:
   ```elixir
-  config :wobserver,
+  config :wobserver2,
     port: 80,
     discovery: :dns,
     discovery_search: "google.nl"
@@ -34,7 +34,7 @@ defmodule Wobserver2.Util.Node.Discovery do
 
   Using a custom function:
   ```elixir
-  config :wobserver,
+  config :wobserver2,
     port: 80,
     discovery: :custom,
     discovery_search: &MyApp.CustomDiscovery.discover/0
@@ -42,7 +42,7 @@ defmodule Wobserver2.Util.Node.Discovery do
 
   Using a anonymous function:
   ```elixir
-  config :wobserver,
+  config :wobserver2,
     port: 80,
     discovery: :custom,
     discovery_search: fn -> [] end
@@ -94,7 +94,7 @@ defmodule Wobserver2.Util.Node.Discovery do
   Discovers other nodes to connect to.
 
   The method used can be set in the config file by setting:
-      config :wobserver,
+      config :wobserver2,
         discovery: :dns,
 
   The following methods can be used: (default: `:none`)
@@ -105,23 +105,23 @@ defmodule Wobserver2.Util.Node.Discovery do
 
   # Example config
   No discovery: (is default)
-      config :wobserver,
+      config :wobserver2,
         discovery: :none
 
   Using dns:
-      config :wobserver,
+      config :wobserver2,
         discovery: :dns,
         discovery_search: "google.nl"
 
   Using a custom function:
-      config :wobserver,
+      config :wobserver2,
         discovery: :custom,
         discovery_search: "&MyApp.CustomDiscovery.discover/0"
   """
   @spec discover :: list(Remote.t())
   def discover do
     nodes =
-      :wobserver
+      :wobserver2
       |> Application.get_env(:discovery, :none)
       |> discovery_call
 
@@ -133,11 +133,11 @@ defmodule Wobserver2.Util.Node.Discovery do
 
   @spec discovery_call(:dns) :: list(Remote.t())
   defp discovery_call(:dns),
-    do: dns_discover(Application.get_env(:wobserver, :discovery_search, nil))
+    do: dns_discover(Application.get_env(:wobserver2, :discovery_search, nil))
 
   @spec discovery_call(:custom) :: list(Remote.t())
   defp discovery_call(:custom) do
-    method = Application.get_env(:wobserver, :discovery_search, fn -> [] end)
+    method = Application.get_env(:wobserver2, :discovery_search, fn -> [] end)
 
     cond do
       is_binary(method) ->

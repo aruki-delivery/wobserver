@@ -24,7 +24,7 @@ defmodule Wobserver2.Util.Node.Remote do
     local?: false
   ]
 
-  @remote_url_prefix Application.get_env(:wobserver, :remote_url_prefix, "")
+  @remote_url_prefix Application.get_env(:wobserver2, :remote_url_prefix, "")
 
   @spec call(map, endpoint :: String.t()) :: String.t() | :error
   defp call(%{host: host, port: port}, endpoint) do

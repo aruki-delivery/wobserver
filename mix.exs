@@ -3,9 +3,9 @@ defmodule Wobserver2.Mixfile do
 
   def project do
     [
-      app: :wobserver,
-      version: "0.1.9",
-      elixir: "~> 1.4",
+      app: :wobserver2,
+      version: "2.0.0",
+      elixir: "~> 1.7",
       description: "Web based metrics, monitoring, and observer.",
       package: package(),
       build_embedded: Mix.env() == :prod,
@@ -22,8 +22,8 @@ defmodule Wobserver2.Mixfile do
       dialyzer: [ignore_warnings: "dialyzer.ignore-warnings"],
       # Docs
       name: "Wobserver",
-      source_url: "https://github.com/shinyscorpion/wobserver",
-      homepage_url: "https://github.com/shinyscorpion/wobserver",
+      source_url: "https://github.com/aruki-delivery/wobserver",
+      homepage_url: "https://github.com/aruki-delivery/wobserver",
       docs: [
         main: "readme",
         extras: ["README.md"]
@@ -34,18 +34,18 @@ defmodule Wobserver2.Mixfile do
   def package do
     [
       name: :wobserver,
-      maintainers: ["Ian Luites"],
+      maintainers: ["Ian Luites", "Carlos Brito Lage"],
       licenses: ["MIT"],
       files: [
         # Elixir
-        "lib/wobserver",
+        "lib/wobserver2",
         "lib/Wobserver2.ex",
         "mix.exs",
         "README*",
         "LICENSE*"
       ],
       links: %{
-        "GitHub" => "https://github.com/shinyscorpion/wobserver"
+        "GitHub" => "https://github.com/aruki-delivery/wobserver"
       }
     ]
   end

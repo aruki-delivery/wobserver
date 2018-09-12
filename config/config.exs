@@ -2,5 +2,4 @@
 # and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
-config :wobserver,
-  assets: ""
+config :wobserver2, assets: ""

@@ -60,53 +60,51 @@ defmodule Mix.Tasks.Build do
     js = load_asset("./assets/app.js")
     license = load_asset("./LICENSE")
 
-    File.write!(
-      "./lib/wobserver/assets.ex",
-      """
-      defmodule Wobserver2.Assets do
-        @moduledoc false
+    File.write!("./lib/wobserver2/assets.ex",
+"""
+defmodule Wobserver2.Assets do
+  @moduledoc false
 
-        @lint false
-        @doc false
-        @spec html :: String.t
-        def html do
-          ~S\"""
-          #{html}
-          \"""
-        end
-        _ = @lint
+  @lint false
+  @doc false
+  @spec html :: String.t
+  def html do
+~S\"""
+#{html}
+\"""
+  end
+  _ = @lint
 
-        @lint false
-        @doc false
-        @spec css :: String.t
-        def css do
-          ~S\"""
-          #{css}
-          \"""
-        end
-        _ = @lint
+  @lint false
+  @doc false
+  @spec css :: String.t
+  def css do
+~S\"""
+#{css}
+\"""
+  end
+  _ = @lint
 
-        @lint false
-        @doc false
-        @spec js :: String.t
-        def js do
-          ~S\"""
-          #{js}
-          \"""
-        end
-        _ = @lint
+  @lint false
+  @doc false
+  @spec js :: String.t
+  def js do
+~S\"""
+#{js}
+\"""
+  end
+  _ = @lint
 
-        @lint false
-        @doc false
-        @spec license :: String.t
-        def license do
-          ~S\"""
-          #{license}
-          \"""
-        end
-        _ = @lint
-      end
-      """
-    )
+  @lint false
+  @doc false
+  @spec license :: String.t
+  def license do
+~S\"""
+#{license}
+\"""
+  end
+  _ = @lint
+end
+""")
   end
 end

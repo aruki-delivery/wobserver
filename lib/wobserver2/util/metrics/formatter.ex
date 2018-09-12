@@ -63,7 +63,7 @@ defmodule Wobserver2.Util.Metrics.Formatter do
       type,
       help,
       Application.get_env(
-        :wobserver,
+        :wobserver2,
         :metric_format,
         Wobserver2.Util.Metrics.Prometheus
       )
@@ -187,7 +187,7 @@ defmodule Wobserver2.Util.Metrics.Formatter do
     format_all(
       data,
       Application.get_env(
-        :wobserver,
+        :wobserver2,
         :metric_format,
         Wobserver2.Util.Metrics.Prometheus
       )
@@ -220,7 +220,7 @@ defmodule Wobserver2.Util.Metrics.Formatter do
     merge_metrics(
       metrics,
       Application.get_env(
-        :wobserver,
+        :wobserver2,
         :metric_format,
         Wobserver2.Util.Metrics.Prometheus
       )

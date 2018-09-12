@@ -26,16 +26,16 @@ defmodule Wobserver2 do
   Information about Wobserver2.
 
   Returns a map containing:
-    - `name`, name of `:wobserver`.
-    - `version`, used `:wobserver` version.
-    - `description`, description of `:wobserver`.
-    - `license`, `:wobserver` license name and link.
-    - `links`, list of name + url for `:wobserver` related information.
+    - `name`, name of `:wobserver2`.
+    - `version`, used `:wobserver2` version.
+    - `description`, description of `:wobserver2`.
+    - `license`, `:wobserver2` license name and link.
+    - `links`, list of name + url for `:wobserver2` related information.
   """
   @spec about :: map
   def about do
     version =
-      case :application.get_key(:wobserver, :vsn) do
+      case :application.get_key(:wobserver2, :vsn) do
         {:ok, v} -> List.to_string(v)
         _ -> "Unknown"
       end

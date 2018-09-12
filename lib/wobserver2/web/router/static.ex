@@ -51,7 +51,7 @@ defmodule Wobserver2.Web.Router.Static do
 
   # Helpers
 
-  case Application.get_env(:wobserver, :assets, false) do
+  case Application.get_env(:wobserver2, :assets, false) do
     false ->
       defp send_asset(conn, _asset, fallback) do
         conn

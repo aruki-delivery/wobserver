@@ -64,7 +64,7 @@ defmodule Wobserver2.Application do
                    {:_,
                     [
                       {"/ws", Wobserver2.Web.Client, []},
-                      {:_, Cowboy2.Handler, {Wobserver2.Web.Router, []}}
+                      {:_, Plug.Adapters.Cowboy2.Handler, {Wobserver2.Web.Router, []}}
                     ]}
                  ]
                },

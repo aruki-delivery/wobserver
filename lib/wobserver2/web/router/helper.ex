@@ -24,15 +24,9 @@ defmodule Wobserver2.Web.Router.Helper do
   end
 
   def send_json_resp(data, conn) do
-    case Jason.encode(data) do
-      {:ok, json} ->
-        conn
-        |> Conn.put_resp_content_type("application/json")
-        |> Conn.send_resp(200, json)
-
-      _ ->
-        conn
-        |> Conn.send_resp(500, "Response could not be generated.")
-    end
+    json = Jason.encode!(data)
+    conn
+    |> Conn.put_resp_content_type("application/json")
+    |> Conn.send_resp(200, json)
   end
 end

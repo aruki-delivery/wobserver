@@ -100,7 +100,7 @@ defmodule Wobserver2.Util.Metrics do
 
   Example:
   ```elixir
-  config :wobserver,
+  config :wobserver2,
     metrics: [
       additional: [
         example: {fn -> [red: 5] end, :gauge, "Description"},
@@ -118,12 +118,12 @@ defmodule Wobserver2.Util.Metrics do
     ensure_storage()
 
     metrics =
-      :wobserver
+      :wobserver2
       |> Application.get_env(:metrics, [])
       |> Keyword.get(:additional, [])
 
     generators =
-      :wobserver
+      :wobserver2
       |> Application.get_env(:metrics, [])
       |> Keyword.get(:generators, [])
 
