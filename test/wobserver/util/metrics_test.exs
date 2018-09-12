@@ -1,7 +1,7 @@
-defmodule Wobserver.Util.MetricsTest do
+defmodule Wobserver2.Util.MetricsTest do
   use ExUnit.Case
 
-  alias Wobserver.Util.Metrics
+  alias Wobserver2.Util.Metrics
 
   describe "overview" do
     test "returns a list" do

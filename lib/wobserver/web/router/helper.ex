@@ -1,4 +1,4 @@
-defmodule Wobserver.Web.Router.Helper do
+defmodule Wobserver2.Web.Router.Helper do
   @moduledoc ~S"""
   Helper methods for routers.
   """
@@ -24,7 +24,7 @@ defmodule Wobserver.Web.Router.Helper do
   end
 
   def send_json_resp(data, conn) do
-    case Poison.encode(data) do
+    case Jason.encode(data) do
       {:ok, json} ->
         conn
         |> Conn.put_resp_content_type("application/json")

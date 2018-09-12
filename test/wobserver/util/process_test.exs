@@ -1,7 +1,7 @@
-defmodule Wobserver.Util.ProcessTest do
+defmodule Wobserver2.Util.ProcessTest do
   use ExUnit.Case
 
-  alias Wobserver.Util.Process
+  alias Wobserver2.Util.Process
 
   defp pid(pid),
     do: "<0.#{pid}.0>" |> String.to_charlist() |> :erlang.list_to_pid()

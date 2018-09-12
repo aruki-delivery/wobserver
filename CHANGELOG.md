@@ -24,7 +24,7 @@
 
 ## 0.1.5
 
-* Bake assets into wobserver.
+* Bake assets into Wobserver2.
 * Remove custom tasks from hex package.
 * Improved web build tools.
 * Improved package build tools.

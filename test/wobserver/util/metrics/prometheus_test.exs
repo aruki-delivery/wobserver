@@ -1,7 +1,7 @@
-defmodule Wobserver.Util.Metrics.PrometheusTest do
+defmodule Wobserver2.Util.Metrics.PrometheusTest do
   use ExUnit.Case, async: false
 
-  alias Wobserver.Util.Metrics.Prometheus
+  alias Wobserver2.Util.Metrics.Prometheus
 
   describe "merge_metrics" do
     test "removes duplicate help" do

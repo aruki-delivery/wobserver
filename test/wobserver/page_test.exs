@@ -1,7 +1,7 @@
-defmodule Wobserver.PageTest do
+defmodule Wobserver2.PageTest do
   use ExUnit.Case
 
-  alias Wobserver.Page
+  alias Wobserver2.Page
 
   describe "list" do
     test "returns a list" do

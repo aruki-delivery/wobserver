@@ -1,4 +1,4 @@
-defmodule Wobserver.Util.Metrics.Prometheus do
+defmodule Wobserver2.Util.Metrics.Prometheus do
   @moduledoc ~S"""
   Prometheus formatter.
 
@@ -6,7 +6,7 @@ defmodule Wobserver.Util.Metrics.Prometheus do
   See: [https://prometheus.io/docs/instrumenting/writing_exporters/](https://prometheus.io/docs/instrumenting/writing_exporters/)
   """
 
-  @behaviour Wobserver.Util.Metrics.Formatter
+  @behaviour Wobserver2.Util.Metrics.Formatter
 
   @doc ~S"""
   Format a set of `data` with a `label` for a Prometheus.

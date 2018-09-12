@@ -1,8 +1,8 @@
-defmodule Wobserver.Util.Node.DiscoveryTest do
+defmodule Wobserver2.Util.Node.DiscoveryTest do
   use ExUnit.Case
 
-  alias Wobserver.Util.Node.Remote
-  alias Wobserver.Util.Node.Discovery
+  alias Wobserver2.Util.Node.Remote
+  alias Wobserver2.Util.Node.Discovery
 
   def custom_search do
     [
@@ -56,7 +56,7 @@ defmodule Wobserver.Util.Node.DiscoveryTest do
       :meck.expect(Application, :get_env, fn :wobserver, field, _ ->
         case field do
           :discovery -> :custom
-          :discovery_search -> "&Wobserver.Util.Node.DiscoveryTest.custom_search/0"
+          :discovery_search -> "&Wobserver2.Util.Node.DiscoveryTest.custom_search/0"
           :port -> 4001
         end
       end)
@@ -196,7 +196,7 @@ defmodule Wobserver.Util.Node.DiscoveryTest do
       :meck.expect(Application, :get_env, fn :wobserver, field, _ ->
         case field do
           :discovery -> :custom
-          :discovery_search -> "&Wobserver.Util.Node.DiscoveryTest.custom_search/0"
+          :discovery_search -> "&Wobserver2.Util.Node.DiscoveryTest.custom_search/0"
           :port -> 4001
         end
       end)
@@ -214,7 +214,7 @@ defmodule Wobserver.Util.Node.DiscoveryTest do
       :meck.expect(Application, :get_env, fn :wobserver, field, _ ->
         case field do
           :discovery -> :custom
-          :discovery_search -> &Wobserver.Util.Node.DiscoveryTest.custom_search/0
+          :discovery_search -> &Wobserver2.Util.Node.DiscoveryTest.custom_search/0
           :port -> 4001
         end
       end)
@@ -235,7 +235,7 @@ defmodule Wobserver.Util.Node.DiscoveryTest do
             :custom
 
           :discovery_search ->
-            "fn -> [%Wobserver.Util.Node.Remote{name: \"Remote 1\", host: nil, port: 0}] end"
+            "fn -> [%Wobserver2.Util.Node.Remote{name: \"Remote 1\", host: nil, port: 0}] end"
 
           :port ->
             4001

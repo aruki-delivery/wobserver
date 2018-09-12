@@ -1,6 +1,6 @@
-defmodule Wobserver.Web.ClientProxy do
+defmodule Wobserver2.Web.ClientProxy do
   @moduledoc ~S"""
-  ClientProxy will proxy websocket requests from `Wobserver.Web.ClientSocket` to a remote node.
+  ClientProxy will proxy websocket requests from `Wobserver2.Web.ClientSocket` to a remote node.
 
   TODO: Needs config.
   """

@@ -1,9 +1,9 @@
-defmodule Wobserver.Util.Metrics do
+defmodule Wobserver2.Util.Metrics do
   @moduledoc ~S"""
-  Metrics management for custom metrics and generators in wobserver.
+  Metrics management for custom metrics and generators in Wobserver2.
   """
 
-  alias Wobserver.System.Memory
+  alias Wobserver2.System.Memory
 
   @metrics_table :wobserver_metrics
 
@@ -22,7 +22,7 @@ defmodule Wobserver.Util.Metrics do
   @doc ~S"""
   Memory metrics.
 
-  See: `Wobserver.System.Memory.usage/0`.
+  See: `Wobserver2.System.Memory.usage/0`.
   """
   @spec memory :: keyword
   def memory do
@@ -63,7 +63,7 @@ defmodule Wobserver.Util.Metrics do
     - `list` of callable functions.
       Every function should return a keyword list with as key the name of the metric and as value the metric data.
 
-  For more information about how to format metric data see: `Wobserver.Util.Metrics.Formatter.format_all/1`.
+  For more information about how to format metric data see: `Wobserver2.Util.Metrics.Formatter.format_all/1`.
   """
   @spec register(metrics :: list) :: boolean
   def register(metrics) when is_list(metrics) do
@@ -96,7 +96,7 @@ defmodule Wobserver.Util.Metrics do
     - `additional`, for a keyword list with additional metrics.
     - `generators`, for a list of metric generators.
 
-  For more information and types see: `Wobserver.Util.Metrics.register/1`.
+  For more information and types see: `Wobserver2.Util.Metrics.register/1`.
 
   Example:
   ```elixir

@@ -1,12 +1,12 @@
-defmodule Wobserver.System do
+defmodule Wobserver2.System do
   @moduledoc ~S"""
   Provides System information.
   """
 
-  alias Wobserver.System.Info
-  alias Wobserver.System.Memory
-  alias Wobserver.System.Scheduler
-  alias Wobserver.System.Statistics
+  alias Wobserver2.System.Info
+  alias Wobserver2.System.Memory
+  alias Wobserver2.System.Scheduler
+  alias Wobserver2.System.Statistics
 
   @typedoc ~S"""
   System overview information.
@@ -44,7 +44,7 @@ defmodule Wobserver.System do
     - `statistics`, general System statistics.
     - `scheduler`, scheduler utilization per scheduler.
   """
-  @spec overview :: Wobserver.System.t()
+  @spec overview :: Wobserver2.System.t()
   def overview do
     %__MODULE__{
       architecture: Info.architecture(),

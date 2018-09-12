@@ -1,9 +1,9 @@
-defmodule Wobserver.Util.Process do
+defmodule Wobserver2.Util.Process do
   @moduledoc ~S"""
   Process and pid handling.
   """
 
-  import Wobserver.Util.Helper, only: [string_to_module: 1, format_function: 1]
+  import Wobserver2.Util.Helper, only: [string_to_module: 1, format_function: 1]
 
   @process_summary [
     :registered_name,
@@ -59,51 +59,51 @@ defmodule Wobserver.Util.Process do
 
   Example:
   ```bash
-  iex> Wobserver.Util.Process.pid pid(0, 33, 0)
+  iex> Wobserver2.Util.Process.pid pid(0, 33, 0)
   #PID<0.33.0>
   ```
   ```bash
-  iex> Wobserver.Util.Process.pid :cowboy_sup
+  iex> Wobserver2.Util.Process.pid :cowboy_sup
   #PID<0.253.0>
   ```
   ```bash
-  iex> Wobserver.Util.Process.pid Logger
+  iex> Wobserver2.Util.Process.pid Logger
   #PID<0.213.0>
   ```
   ```bash
-  iex> Wobserver.Util.Process.pid 33
+  iex> Wobserver2.Util.Process.pid 33
   #PID<0.33.0>
   ```
   ```bash
-  iex> Wobserver.Util.Process.pid [0, 33, 0]
+  iex> Wobserver2.Util.Process.pid [0, 33, 0]
   #PID<0.33.0>
   ```
   ```bash
-  iex> Wobserver.Util.Process.pid '<0.33.0>'
+  iex> Wobserver2.Util.Process.pid '<0.33.0>'
   #PID<0.33.0>
   ```
   ```bash
-  iex> Wobserver.Util.Process.pid {0, 33, 0}
+  iex> Wobserver2.Util.Process.pid {0, 33, 0}
   #PID<0.33.0>
   ```
   ```bash
-  iex> Wobserver.Util.Process.pid "#PID<0.33.0>"
+  iex> Wobserver2.Util.Process.pid "#PID<0.33.0>"
   #PID<0.33.0>
   ```
   ```bash
-  iex> Wobserver.Util.Process.pid "<0.33.0>"
+  iex> Wobserver2.Util.Process.pid "<0.33.0>"
   #PID<0.33.0>
   ```
   ```bash
-  iex> Wobserver.Util.Process.pid "cowboy_sup"
+  iex> Wobserver2.Util.Process.pid "cowboy_sup"
   #PID<0.253.0>
   ```
   ```bash
-  iex> Wobserver.Util.Process.pid "Logger"
+  iex> Wobserver2.Util.Process.pid "Logger"
   #PID<0.213.0>
   ```
   ```bash
-  iex> Wobserver.Util.Process.pid 4.5
+  iex> Wobserver2.Util.Process.pid 4.5
   nil
   ```
   """
@@ -125,7 +125,7 @@ defmodule Wobserver.Util.Process do
   @doc ~S"""
   Turns the argument `pid` into a pid or if not possible raises error.
 
-  For example see: `Wobserver.Util.Process.pid/1`.
+  For example see: `Wobserver2.Util.Process.pid/1`.
   """
   @spec pid!(pid :: pid | list | binary | integer | {integer, integer, integer}) :: pid
   def pid!(pid) do

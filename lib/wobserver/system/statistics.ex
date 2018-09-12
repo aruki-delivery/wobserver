@@ -1,4 +1,4 @@
-defmodule Wobserver.System.Statistics do
+defmodule Wobserver2.System.Statistics do
   @moduledoc ~S"""
   Handles system statistics.
   """
@@ -25,7 +25,7 @@ defmodule Wobserver.System.Statistics do
   @doc ~S"""
   Returns system statistics.
   """
-  @spec overview :: Wobserver.System.Statistics.t()
+  @spec overview :: Wobserver2.System.Statistics.t()
   def overview do
     {input, output} = io()
     {running, total, max} = process()

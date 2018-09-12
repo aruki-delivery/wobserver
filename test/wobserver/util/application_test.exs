@@ -1,7 +1,7 @@
-defmodule Wobserver.Util.ApplicationTest do
+defmodule Wobserver2.Util.ApplicationTest do
   use ExUnit.Case
 
-  alias Wobserver.Util.Application
+  alias Wobserver2.Util.Application
 
   describe "list" do
     test "returns a list" do

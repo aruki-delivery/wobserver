@@ -1,9 +1,9 @@
-defmodule Wobserver.Page do
+defmodule Wobserver2.Page do
   @moduledoc """
-  Page management for custom commands and pages in api and wobserver.
+  Page management for custom commands and pages in api and Wobserver2.
   """
 
-  alias Wobserver.Page
+  alias Wobserver2.Page
 
   @pages_table :wobserver_pages
 
@@ -192,7 +192,7 @@ defmodule Wobserver.Page do
         - `callback`
         - `options` (optional)
 
-  For more information and types see: `Wobserver.Page.register/1`.
+  For more information and types see: `Wobserver2.Page.register/1`.
 
   Example:
   ```elixir

@@ -7,7 +7,7 @@ class TableDetail {
   }
 
   show() {
-    this.wobserver.client.command_promise('table/' + this.table)
+    this.Wobserver2.client.command_promise('table/' + this.table)
     .then(e => {
       let table = e.data;
       if( table == 'error' ){

@@ -1,9 +1,9 @@
-defmodule Wobserver.System.Info do
+defmodule Wobserver2.System.Info do
   @moduledoc ~S"""
   Handles general System info like architecture and cpu.
   """
 
-  alias Wobserver.System.Info
+  alias Wobserver2.System.Info
 
   @typedoc ~S"""
   Architecture information.

@@ -1,34 +1,24 @@
-defmodule Wobserver.Application do
-  @moduledoc ~S"""
-  Sets up the main routers with Cowboy.
-  """
-
+defmodule Wobserver2.Application do
   use Application
+  require Logger
+  require Wobserver2.Util.EnvHelper
 
-  alias Plug.Adapters.Cowboy
+  alias Wobserver2.Page
+  alias Wobserver2.Util.Metrics
 
-  alias Wobserver.Page
-  alias Wobserver.Util.Metrics
+  @ref Module.concat([__MODULE__, "HTTP", "Ranch15", "Cowboy24"])
+  @max_connections 300
+  @timeout 30000
+  @port Wobserver2.Util.EnvHelper.parse_port!("WOBSERVER_PORT", "8910")
 
   @doc ~S"""
   The port the application uses.
   """
   @spec port :: integer
-  def port do
-    Application.get_env(:wobserver, :port, 4001)
-  end
+  def port(), do: @port
 
   @doc ~S"""
   Starts `wobserver`.
-
-  The option `:mode` is used to determine how to start `wobserver`.
-
-  The following values are possible:
-    - `:standalone`, starts a supervisor that supervises cowboy.
-    - `:plug`, passes the Agent storage of the metrics back as pid, without starting any extra processes.
-
-  In `:plug` mode no cowboy/ranch server is started, so the `wobserver` router will need to be called from somewhere else.
-
   **Note:** both `type` and `args` are unused.
   """
   @spec start(term, term) ::
@@ -36,50 +26,63 @@ defmodule Wobserver.Application do
           | {:ok, pid, state :: any}
           | {:error, reason :: term}
   def start(_type, _args) do
+    Logger.info("[#{__MODULE__}] Starting Wobserver2:#{@port} ")
     # Load pages and metrics from config
     Page.load_config()
     Metrics.load_config()
 
-    # Start cowboy
-    case supervisor_children() do
-      [] ->
-        # Return the metric storage if we're not going to start an application.
-        {:ok, Process.whereis(:wobserver_metrics)}
-
-      children ->
-        import Supervisor.Spec, warn: false
-
-        opts = [strategy: :one_for_one, name: Wobserver.Supervisor]
-        Supervisor.start_link(children, opts)
-    end
-  end
-
-  defp supervisor_children do
-    case Application.get_env(:wobserver, :mode, :standalone) do
-      :standalone ->
-        [
-          cowboy_child_spec()
-        ]
-
-      :plug ->
-        []
-    end
-  end
-
-  defp cowboy_child_spec do
-    options = [
-      # Options
-      acceptors: 10,
-      port: Wobserver.Application.port(),
-      dispatch: [
-        {:_,
-         [
-           {"/ws", Wobserver.Web.Client, []},
-           {:_, Cowboy.Handler, {Wobserver.Web.Router, []}}
-         ]}
-      ]
+    children = [
+      %{
+        id: {:ranch_listener_sup, @ref},
+        start:
+          {:ranch_listener_sup, :start_link,
+           [
+             # supervisor id / ref
+             @ref,
+             # num_acceptors
+             100,
+             # ranch_protocol
+             :ranch_tcp,
+             [
+               # ranch tcp configs
+               port: @port,
+               max_connections: @max_connections,
+               keepalive: true,
+               send_timeout: @timeout
+             ],
+             # cowboy <-> ranch protocol
+             :cowboy_clear,
+             %{
+               # cowboy configs
+               connection_type: :supervisor,
+               middlewares: [
+                 :cowboy_router,
+                 :cowboy_handler
+               ],
+               env: %{
+                 dispatch: [
+                   {:_,
+                    [
+                      {"/ws", Wobserver2.Web.Client, []},
+                      {:_, Cowboy2.Handler, {Wobserver2.Web.Router, []}}
+                    ]}
+                 ]
+               },
+               stream_handlers: [:cowboy_stream_h]
+             }
+           ]},
+        restart: :permanent,
+        shutdown: :infinity,
+        type: :supervisor,
+        modules: [:ranch_listener_sup]
+      }
     ]
 
-    Cowboy.child_spec(:http, Wobserver.Web.Router, [], options)
+    opts = [strategy: :one_for_one, name: Wobserver2.Web.Supervisor]
+    sup = Supervisor.start_link(children, opts)
+    Logger.info("[#{__MODULE__}] Started Wobserver2:#{@port} successfully!")
+    sup
   end
+
+  def stop(_state), do: :ok
 end

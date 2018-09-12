@@ -1,4 +1,4 @@
-defmodule Wobserver.Web.Router.Base do
+defmodule Wobserver2.Web.Router.Base do
   @moduledoc ~S"""
   Base Router module, includes standard helpers and plugs.
   """
@@ -19,7 +19,7 @@ defmodule Wobserver.Web.Router.Base do
         plug_builder_call(conn, opts)
       end
 
-      import Wobserver.Web.Router.Helper, only: [send_json_resp: 2]
+      import Wobserver2.Web.Router.Helper, only: [send_json_resp: 2]
 
       plug(:match)
       plug(:dispatch)

@@ -6,7 +6,7 @@ class NodeDialog {
   }
 
   show() {
-    this.wobserver.client.command_promise('nodes')
+    this.Wobserver2.client.command_promise('nodes')
     .then(e => {
       let nodes = e.data;
 
@@ -22,7 +22,7 @@ class NodeDialog {
 
       nodes.forEach((node) => {
         let li = document.createElement('li');
-        let selected = (this.wobserver.client.node == node.name);
+        let selected = (this.Wobserver2.client.node == node.name);
 
         li.className = selected ? 'node selected' : 'node';
 
@@ -34,7 +34,7 @@ class NodeDialog {
           li.addEventListener('click', () => this.hide());
         } else {
           li.addEventListener('click', () =>{
-            this.wobserver.client.set_node(node.name);
+            this.Wobserver2.client.set_node(node.name);
             this.hide();
           });
         }

@@ -1,7 +1,7 @@
-defmodule Wobserver.Util.Metrics.FormatterTest do
+defmodule Wobserver2.Util.Metrics.FormatterTest do
   use ExUnit.Case, async: false
 
-  alias Wobserver.Util.Metrics.{
+  alias Wobserver2.Util.Metrics.{
     Formatter,
     Prometheus
   }
@@ -80,14 +80,14 @@ defmodule Wobserver.Util.Metrics.FormatterTest do
 
     test "returns with valid data as function call" do
       assert Formatter.format(
-               "Wobserver.Util.Metrics.FormatterTest.example_function",
+               "Wobserver2.Util.Metrics.FormatterTest.example_function",
                "data"
              ) == "data{node=\"#{local_ip()}\",type=\"point\"} 5\n"
     end
 
     test "returns with valid data as function" do
       assert Formatter.format(
-               "&Wobserver.Util.Metrics.FormatterTest.example_function/0",
+               "&Wobserver2.Util.Metrics.FormatterTest.example_function/0",
                "data"
              ) == "data{node=\"#{local_ip()}\",type=\"point\"} 5\n"
     end
@@ -98,7 +98,7 @@ defmodule Wobserver.Util.Metrics.FormatterTest do
                "data",
                nil,
                nil,
-               Wobserver.Util.Metrics.Prometheus
+               Wobserver2.Util.Metrics.Prometheus
              ) == "data{node=\"#{local_ip()}\",type=\"point\"} 5\n"
     end
 
@@ -108,7 +108,7 @@ defmodule Wobserver.Util.Metrics.FormatterTest do
                "data",
                nil,
                nil,
-               "Wobserver.Util.Metrics.Prometheus"
+               "Wobserver2.Util.Metrics.Prometheus"
              ) == "data{node=\"#{local_ip()}\",type=\"point\"} 5\n"
     end
   end

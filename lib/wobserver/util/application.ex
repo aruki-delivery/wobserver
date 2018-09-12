@@ -1,11 +1,11 @@
-defmodule Wobserver.Util.Application do
+defmodule Wobserver2.Util.Application do
   @moduledoc ~S"""
   Application listing and process hierachy.
   """
 
-  alias Wobserver.Util.Process
+  alias Wobserver2.Util.Process
 
-  import Wobserver.Util.Helper, only: [parallel_map: 2]
+  import Wobserver2.Util.Helper, only: [parallel_map: 2]
 
   @doc ~S"""
   Lists all running applications.
@@ -28,7 +28,7 @@ defmodule Wobserver.Util.Application do
   Containing:
     - `pid`, the process id or port id.
     - `name`, the registered name or pid/port.
-    - `meta`,  the meta information of a process. (See: `Wobserver.Util.Process.meta/1`.)
+    - `meta`,  the meta information of a process. (See: `Wobserver2.Util.Process.meta/1`.)
     - `children`, the children of the process.
   """
   @spec info(app :: atom) :: map

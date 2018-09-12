@@ -21,7 +21,7 @@ erl_crash.dump
 *.ez
 
 # Node / Gulp / Web
-node_modules
+node_modules/
 assets/*.map
 
 # For now there is no reason to include the assets
@@ -37,3 +37,8 @@ assets
 /lib/wobserver/assets.ex
 
 .elixir_ls
+
+.idea/
+
+*.iml
+.mix/

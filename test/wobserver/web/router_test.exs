@@ -1,8 +1,8 @@
-defmodule Wobserver.Web.RouterTest do
+defmodule Wobserver2.Web.RouterTest do
   use ExUnit.Case, async: true
   use Plug.Test
 
-  alias Wobserver.Web.Router
+  alias Wobserver2.Web.Router
 
   @opts Router.init([])
 
@@ -13,7 +13,7 @@ defmodule Wobserver.Web.RouterTest do
 
     assert conn.state == :sent
     assert conn.status == 200
-    assert Poison.encode!(Wobserver.Util.Node.Discovery.discover()) == conn.resp_body
+    assert Jason.encode!(Wobserver2.Util.Node.Discovery.discover()) == conn.resp_body
   end
 
   test "/ returns 200" do

@@ -1,8 +1,8 @@
-defmodule Wobserver.Web.Router.StaticTest do
+defmodule Wobserver2.Web.Router.StaticTest do
   use ExUnit.Case, async: false
   use Plug.Test
 
-  alias Wobserver.Web.Router.Static
+  alias Wobserver2.Web.Router.Static
 
   @opts Static.init([])
 

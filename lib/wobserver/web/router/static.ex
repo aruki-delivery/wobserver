@@ -1,4 +1,4 @@
-defmodule Wobserver.Web.Router.Static do
+defmodule Wobserver2.Web.Router.Static do
   @moduledoc ~S"""
   Static router mostly for the browsers interface.
 
@@ -9,15 +9,11 @@ defmodule Wobserver.Web.Router.Static do
     - `/license`, for the *MIT* license information.
   """
 
-  use Wobserver.Web.Router.Base
+  use Wobserver2.Web.Router.Base
 
-  alias Wobserver.Assets
-
-  @security Application.get_env(:wobserver, :security, Wobserver.Security)
+  alias Wobserver2.Assets
 
   get "/" do
-    conn = @security.authenticate(conn)
-
     case String.ends_with?(conn.request_path, "/") do
       true ->
         conn
@@ -27,7 +23,7 @@ defmodule Wobserver.Web.Router.Static do
       false ->
         conn
         |> put_resp_header("location", conn.request_path <> "/")
-        |> resp(301, "Redirecting to Wobserver.")
+        |> resp(301, "Redirecting to Wobserver2.")
     end
   end
 

@@ -1,10 +1,10 @@
 {
-  "name": "wobserver",
-  "version": "0.1.0",
+  "name": "wobserver2",
+  "version": "2.0.0",
   "description": "Wobserver web build tools.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/shinyscorpion/wobserver"
+    "url": "https://github.com/aruki-delivery/wobserver"
   },
   "main": "gulpfile.js",
   "engines": {

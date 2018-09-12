@@ -1,11 +1,11 @@
 # Wobserver
 
-[![Hex.pm](https://img.shields.io/hexpm/v/wobserver.svg "Hex")](https://hex.pm/packages/wobserver)
-[![Build Status](https://travis-ci.org/shinyscorpion/wobserver.svg?branch=master)](https://travis-ci.org/shinyscorpion/wobserver)
+[![Hex.pm](https://img.shields.io/hexpm/v/Wobserver2.svg "Hex")](https://hex.pm/packages/wobserver)
+[![Build Status](https://travis-ci.org/shinyscorpion/Wobserver2.svg?branch=master)](https://travis-ci.org/shinyscorpion/wobserver)
 [![Coverage Status](https://coveralls.io/repos/github/shinyscorpion/wobserver/badge.svg?branch=master)](https://coveralls.io/github/shinyscorpion/wobserver?branch=master)
-[![Inline docs](http://inch-ci.org/github/shinyscorpion/wobserver.svg?branch=master)](http://inch-ci.org/github/shinyscorpion/wobserver)
-[![Deps Status](https://beta.hexfaktor.org/badge/all/github/shinyscorpion/wobserver.svg)](https://beta.hexfaktor.org/github/shinyscorpion/wobserver)
-[![Hex.pm](https://img.shields.io/hexpm/l/wobserver.svg "License")](LICENSE)
+[![Inline docs](http://inch-ci.org/github/shinyscorpion/Wobserver2.svg?branch=master)](http://inch-ci.org/github/shinyscorpion/wobserver)
+[![Deps Status](https://beta.hexfaktor.org/badge/all/github/shinyscorpion/Wobserver2.svg)](https://beta.hexfaktor.org/github/shinyscorpion/wobserver)
+[![Hex.pm](https://img.shields.io/hexpm/l/Wobserver2.svg "License")](LICENSE)
 
 Web based metrics, monitoring, and observer.
 
@@ -375,7 +375,7 @@ So all the following are valid:
 ```bash
 http://localhost:4001/api/process/<0.247.0>
 http://localhost:4001/api/process/#PID<0.247.0>   # Rememeber to url encode # -> %23
-http://localhost:4001/api/process/Wobserver.Supervisor
+http://localhost:4001/api/process/Wobserver2.Supervisor
 ```
 
 Example:
@@ -632,7 +632,7 @@ sure dns node discovery still functions.
 Add the following line of code to the application's router to forward requests to `:wobserver`:
 
 ```elixir
-  forward "/wobserver", to: Wobserver.Web.Router
+  forward "/wobserver", to: Wobserver2.Web.Router
 ```
 
 Add the following option to the `:cowboy` child_spec to enable use of the `:wobserver` websocket:
@@ -640,7 +640,7 @@ Add the following option to the `:cowboy` child_spec to enable use of the `:wobs
 ```elixir
 dispatch: [
     {:_, [
-      {"/ws", Wobserver.Web.Client, []},
+      {"/ws", Wobserver2.Web.Client, []},
       {:_, Cowboy.Handler, {<your own router>, []}}
     ]}
   ],
@@ -651,14 +651,14 @@ dispatch: [
 Add the following line of code to the Phoenix router to forward requests to `:wobserver`:
 
 ```elixir
-  forward "/wobserver", Wobserver.Web.Router
+  forward "/wobserver", Wobserver2.Web.Router
 ```
 
 Add the following option to your Phoenix applications Endpoint to enable use of the `:wobserver` websocket (the
 path should match what is in the 'forward' in your router):
 
 ```elixir
-  socket "/wobserver", Wobserver.Web.PhoenixSocket
+  socket "/wobserver", Wobserver2.Web.PhoenixSocket
 ```
 
 ##### Cowboy Example
@@ -677,7 +677,7 @@ defmodule MyApp.MyRouter do
   plug :match
   plug :dispatch
 
-  forward "/wobserver", to: Wobserver.Web.Router
+  forward "/wobserver", to: Wobserver2.Web.Router
 end
 ```
 __application.ex__
@@ -693,7 +693,7 @@ defmodule MyApp.Application do
     options = [
       dispatch: [
         {:_, [
-          {"/wobserver/ws", Wobserver.Web.Client, []},
+          {"/wobserver/ws", Wobserver2.Web.Client, []},
           {:_, Cowboy.Handler, {MyApp.MyRouter, []}}
         ]}
       ],
@@ -775,7 +775,7 @@ The following inputs are accepted for metric generators:
   - `list` of callable functions.
     Every function should return a keyword list with as key the name of the metric and as value the metric data.
 
-For more information about how to format metric data see: [`Wobserver.Util.Metrics.Formatter.format_all/1`](https://hexdocs.pm/wobserver/Wobserver.Util.Metrics.Formatter.html#format_all/1).
+For more information about how to format metric data see: [`Wobserver2.Util.Metrics.Formatter.format_all/1`](https://hexdocs.pm/wobserver/Wobserver2.Util.Metrics.Formatter.html#format_all/1).
 
 For example this configuration:
 ```elixir
@@ -795,22 +795,22 @@ config :wobserver,
 #### Dynamically
 Metrics and metric generators can also be added dynamically at runtime.
 
-To register a metric you need to pass a keyword list to `Wobserver.register` with the same data as you would set in the configuration file.
+To register a metric you need to pass a keyword list to `Wobserver2.register` with the same data as you would set in the configuration file.
 
 For example:
 ```elixir
-Wobserver.register :metric, [example: {fn -> [red: 5] end, :gauge, "Description"}]
+Wobserver2.register :metric, [example: {fn -> [red: 5] end, :gauge, "Description"}]
 ```
 
-To register a metric generator you need to pass a list of functions to `Wobserver.register`.
+To register a metric generator you need to pass a list of functions to `Wobserver2.register`.
 
 For example:
 ```elixir
-Wobserver.register :metric, [&MyLibrary.Metrics.generate/0]
+Wobserver2.register :metric, [&MyLibrary.Metrics.generate/0]
 ```
 
 #### <a name="formatting-metrics"></a> Formatting
-A custom formatter can be created for output of metrics by implementing the `Wobserver.Util.Metrics.Formatter` behavior.
+A custom formatter can be created for output of metrics by implementing the `Wobserver2.Util.Metrics.Formatter` behavior.
 This custom formatter can be enabled in the configuration file by setting `metric_format`.
 
 For example this configuration:
@@ -822,7 +822,7 @@ config :wobserver,
 And this simple JSON formatter:
 ```elixir
 defmodule SimpleJsonFormatter do
-  @behaviour Wobserver.Util.Metrics.Formatter
+  @behaviour Wobserver2.Util.Metrics.Formatter
 
   def format_data(name, data, type, help) do
     formatted_data =
@@ -837,7 +837,7 @@ defmodule SimpleJsonFormatter do
       description: help,
       data: formatted_data
     }
-    |> Poison.encode!
+    |> Jason.encode!
   end
 
   def combine_metrics(metrics) do
@@ -926,7 +926,7 @@ Pages are custom views in the web interface and endpoints in the JSON API for an
 
 There are two ways to add a custom page:
 * *config*, set a list of custom pages in the mix config.
-* *registration*, call `Wobserver.register/2` and dynamically add pages.
+* *registration*, call `Wobserver2.register/2` and dynamically add pages.
 
 #### <a name="pages-config"></a> Config
 Adding more pages to `:wobserver` can be done by setting the `:pages` option.
@@ -942,7 +942,7 @@ The page data can be formatted as:
       * `callback`
       * `options` (optional)
 
-For more information and types see: [`Wobserver.Page.register/1`](https://hexdocs.pm/wobserver/Wobserver.Page.html#register/1).
+For more information and types see: [`Wobserver2.Page.register/1`](https://hexdocs.pm/wobserver/Wobserver2.Page.html#register/1).
 
 Example:
 ```elixir
@@ -952,7 +952,7 @@ config :wobserver,
   ]
 ```
 #### <a name="pages-dynamic"></a> Dynamically
-Dynamically register a page with `:wobserver` by calling [`Wobserver.register/2`](https://hexdocs.pm/wobserver/Wobserver.html#register/2).
+Dynamically register a page with `:wobserver` by calling [`Wobserver2.register/2`](https://hexdocs.pm/wobserver/Wobserver2.html#register/2).
 
 The following inputs are accepted:
   * `{title, command, callback}`
@@ -976,18 +976,18 @@ The following options can be set:
 
 Example:
 ```elixir
-Wobserver.register(:page, {"My App", :my_app, fn -> %{data: 123} end})
+Wobserver2.register(:page, {"My App", :my_app, fn -> %{data: 123} end})
 ```
 
 ## Library Integration
-Integrating a library with `:wobserver` is done by calling [`Wobserver.register/2`](https://hexdocs.pm/wobserver/Wobserver.html#register/2), when the library loads, and dynamically adding pages and metrics.
+Integrating a library with `:wobserver` is done by calling [`Wobserver2.register/2`](https://hexdocs.pm/wobserver/Wobserver2.html#register/2), when the library loads, and dynamically adding pages and metrics.
 
 ### Code
 To safely integrate with `:wobserver` use the following code:
 ```elixir
 if Code.ensure_loaded(Wobserver) == {:module, Wobserver} do
-  Wobserver.register :page, {"My Library", :my_library, fn -> %{data: 123} end}
-  Wobserver.register :metric, [&MyLibrary.Metrics.generate/0]
+  Wobserver2.register :page, {"My Library", :my_library, fn -> %{data: 123} end}
+  Wobserver2.register :metric, [&MyLibrary.Metrics.generate/0]
 end
 ```
 The above code will make sure that the library only calls register, when `:wobserver` is loaded.
@@ -998,7 +998,7 @@ For an implementation see the `:task_bunny` library: [TaskBunny](https://github.
 ### Remove Warnings
 The above code will generate warnings while compiling the library.
 ```bash
-warning: function Wobserver.register/2 is undefined (module Wobserver is not available)
+warning: function Wobserver2.register/2 is undefined (module Wobserver is not available)
 ```
 
 There are two options to remove those warnings.

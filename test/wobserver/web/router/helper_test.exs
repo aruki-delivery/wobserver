@@ -1,8 +1,8 @@
-defmodule Wobserver.Web.Router.HelperTest do
+defmodule Wobserver2.Web.Router.HelperTest do
   use ExUnit.Case, async: true
   use Plug.Test
 
-  alias Wobserver.Web.Router.Helper
+  alias Wobserver2.Web.Router.Helper
 
   test "returns 200 with atom" do
     conn = conn(:get, "/")

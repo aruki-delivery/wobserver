@@ -1,10 +1,10 @@
-defmodule Wobserver.System.Scheduler do
+defmodule Wobserver2.System.Scheduler do
   @moduledoc ~S"""
   Scheduler utilization per scheduler.
 
   Example:
   ```bash
-  Wobserver.System.Scheduler.utilization
+  Wobserver2.System.Scheduler.utilization
   [1.0, 0.0306945631032665, 0.03640598025269633, 0.05220935570330663,
    0.04884165187164101, 0.08352432821297966, 0.11547042454628796,
    0.2861211090456038]
@@ -21,7 +21,7 @@ defmodule Wobserver.System.Scheduler do
 
   Example:
   ```bash
-  Wobserver.System.Scheduler.utilization
+  Wobserver2.System.Scheduler.utilization
   [1.0, 0.0306945631032665, 0.03640598025269633, 0.05220935570330663,
    0.04884165187164101, 0.08352432821297966, 0.11547042454628796,
    0.2861211090456038]

@@ -1,18 +1,18 @@
-defmodule Wobserver.SystemTest do
+defmodule Wobserver2.SystemTest do
   use ExUnit.Case
 
   describe "overview" do
     test "returns system struct" do
-      assert %Wobserver.System{} = Wobserver.System.overview()
+      assert %Wobserver2.System{} = Wobserver2.System.overview()
     end
 
     test "returns values" do
-      %Wobserver.System{
+      %Wobserver2.System{
         architecture: architecture,
         cpu: cpu,
         memory: memory,
         statistics: statistics
-      } = Wobserver.System.overview()
+      } = Wobserver2.System.overview()
 
       assert architecture
       assert cpu

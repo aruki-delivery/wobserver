@@ -1,16 +1,16 @@
-defmodule Wobserver.Web.Client do
+defmodule Wobserver2.Web.Client do
   @moduledoc ~S"""
   Modules handles WebSocket connects to the client.
   """
-  use Wobserver.Web.ClientSocket
+  use Wobserver2.Web.ClientSocket
 
-  alias Wobserver.Allocator
-  alias Wobserver.Page
-  alias Wobserver.Table
-  alias Wobserver.System
-  alias Wobserver.Util.Application
-  alias Wobserver.Util.Process
-  alias Wobserver.Util.Node.Discovery
+  alias Wobserver2.Allocator
+  alias Wobserver2.Page
+  alias Wobserver2.Table
+  alias Wobserver2.System
+  alias Wobserver2.Util.Application
+  alias Wobserver2.Util.Process
+  alias Wobserver2.Util.Node.Discovery
 
   @doc ~S"""
   Starts the websocket client.
@@ -48,7 +48,7 @@ defmodule Wobserver.Web.Client do
   end
 
   def client_handle(:about, state) do
-    {:reply, :about, Wobserver.about(), state}
+    {:reply, :about, Wobserver2.about(), state}
   end
 
   def client_handle(:application, state) do
@@ -73,7 +73,7 @@ defmodule Wobserver.Web.Client do
   end
 
   def client_handle(:ports, state) do
-    {:reply, :ports, Wobserver.Port.list(), state}
+    {:reply, :ports, Wobserver2.Port.list(), state}
   end
 
   def client_handle(:allocators, state) do

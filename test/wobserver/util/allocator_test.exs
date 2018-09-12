@@ -1,7 +1,7 @@
-defmodule Wobserver.AllocatorTest do
+defmodule Wobserver2.AllocatorTest do
   use ExUnit.Case
 
-  alias Wobserver.Allocator
+  alias Wobserver2.Allocator
 
   describe "list" do
     test "returns a list" do

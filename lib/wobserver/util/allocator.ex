@@ -1,4 +1,4 @@
-defmodule Wobserver.Allocator do
+defmodule Wobserver2.Allocator do
   @moduledoc ~S"""
   Handles memory allocators and their block and carrier size.
   """

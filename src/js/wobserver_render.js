@@ -98,43 +98,43 @@ function create_menu(wobserver, additional = []){
       {
         title: 'System',
         icon: 'fa-heartbeat',
-        on_open: () => wobserver.open('system', 1, WobserverRender.display_system),
-        on_close: () => wobserver.close('system', 1)
+        on_open: () => Wobserver2.open('system', 1, WobserverRender.display_system),
+        on_close: () => Wobserver2.close('system', 1)
       },
       {
         title: 'Load Charts',
         icon: 'fa-area-chart',
-        on_open: () => wobserver.open('system', 0.25, WobserverRender.display_load_charts),
-        on_close: () => wobserver.close('system', 0.25)
+        on_open: () => Wobserver2.open('system', 0.25, WobserverRender.display_load_charts),
+        on_close: () => Wobserver2.close('system', 0.25)
       },
       {
         title: 'Memory Allocators',
         icon: 'fa-microchip',
-        on_open: () => wobserver.open('allocators', 0.25, WobserverRender.display_allocators),
-        on_close: () => wobserver.close('allocators', 0.25)
+        on_open: () => Wobserver2.open('allocators', 0.25, WobserverRender.display_allocators),
+        on_close: () => Wobserver2.close('allocators', 0.25)
       },
       {
         title: 'Applications',
         icon: 'fa-desktop',
-        on_open: () => wobserver.open('application', 0, e => WobserverRender.display_applications(e, wobserver)),
+        on_open: () => Wobserver2.open('application', 0, e => WobserverRender.display_applications(e, wobserver)),
       },
       {
         title: 'Processes',
         icon: 'fa-list-alt',
-        on_open: () => wobserver.open('process', 4, WobserverRender.display_processes),
-        on_close: () => wobserver.close('process', 4)
+        on_open: () => Wobserver2.open('process', 4, WobserverRender.display_processes),
+        on_close: () => Wobserver2.close('process', 4)
       },
       {
         title: 'Ports',
         icon: 'fa-usb',
-        on_open: () => wobserver.open('ports', 8, WobserverRender.display_ports),
-        on_close: () => wobserver.close('ports', 8)
+        on_open: () => Wobserver2.open('ports', 8, WobserverRender.display_ports),
+        on_close: () => Wobserver2.close('ports', 8)
       },
       {
         title: 'Table Viewer',
         icon: 'fa-table',
-        on_open: () => wobserver.open('table', 0, WobserverRender.display_table),
-        on_close: () => wobserver.close('table', 0)
+        on_open: () => Wobserver2.open('table', 0, WobserverRender.display_table),
+        on_close: () => Wobserver2.close('table', 0)
       }
   ];
 
@@ -153,7 +153,7 @@ function create_menu(wobserver, additional = []){
   {
     title: 'About',
     icon: 'fa-info',
-    on_open: () => wobserver.open('about', 0, WobserverRender.display_about),
+    on_open: () => Wobserver2.open('about', 0, WobserverRender.display_about),
   });
 
   let menu = document.getElementById('menu');
@@ -227,7 +227,7 @@ function create_footer(wobserver) {
 }
 
 function show_application_graph(app_name, description, wobserver) {
-  wobserver.client.command_promise('application/' + app_name)
+  Wobserver2.client.command_promise('application/' + app_name)
   .then(e => {
     let application = e.data;
 
@@ -275,7 +275,7 @@ const WobserverRender = {
       return;
     }
 
-    wobserver.client.command_promise('custom')
+    Wobserver2.client.command_promise('custom')
     .then(e => {
       create_menu(wobserver,
         e.data
@@ -283,8 +283,8 @@ const WobserverRender = {
         .map(custom => {
           return {
             title: custom.title,
-            on_open: () => wobserver.open(custom.command, custom.refresh, WobserverRender.show_custom),
-            on_close: () => wobserver.close(custom.command, custom.refresh)
+            on_open: () => Wobserver2.open(custom.command, custom.refresh, WobserverRender.show_custom),
+            on_close: () => Wobserver2.close(custom.command, custom.refresh)
           }
         })
       );

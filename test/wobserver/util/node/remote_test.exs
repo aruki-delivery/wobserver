@@ -1,8 +1,8 @@
-defmodule Wobserver.Util.Node.RemoteTest do
+defmodule Wobserver2.Util.Node.RemoteTest do
   use ExUnit.Case, async: false
 
-  alias Wobserver.Util.Node.Remote
-  alias Wobserver.Web.ClientProxy
+  alias Wobserver2.Util.Node.Remote
+  alias Wobserver2.Web.ClientProxy
 
   describe "metrics" do
     test "does remote calls" do

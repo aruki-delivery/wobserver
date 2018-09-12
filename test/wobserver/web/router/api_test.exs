@@ -1,9 +1,9 @@
-defmodule Wobserver.Web.Router.ApiTest do
+defmodule Wobserver2.Web.Router.ApiTest do
   use ExUnit.Case, async: true
   use Plug.Test
 
-  alias Wobserver.Util.Node.Remote
-  alias Wobserver.Web.Router.Api
+  alias Wobserver2.Util.Node.Remote
+  alias Wobserver2.Web.Router.Api
 
   @opts Api.init([])
 
@@ -14,7 +14,7 @@ defmodule Wobserver.Web.Router.ApiTest do
 
     assert conn.state == :sent
     assert conn.status == 200
-    assert Poison.encode!(Wobserver.about()) == conn.resp_body
+    assert Jason.encode!(Wobserver2.about()) == conn.resp_body
   end
 
   test "/nodes returns nodes" do
@@ -24,7 +24,7 @@ defmodule Wobserver.Web.Router.ApiTest do
 
     assert conn.state == :sent
     assert conn.status == 200
-    assert Poison.encode!(Wobserver.Util.Node.Discovery.discover()) == conn.resp_body
+    assert Jason.encode!(Wobserver2.Util.Node.Discovery.discover()) == conn.resp_body
   end
 
   test "/application returns 200" do
@@ -138,7 +138,7 @@ defmodule Wobserver.Web.Router.ApiTest do
           :custom
 
         :discovery_search ->
-          fn -> [%Wobserver.Util.Node.Remote{name: "remote", host: "85.65.12.4", port: 0}] end
+          fn -> [%Wobserver2.Util.Node.Remote{name: "remote", host: "85.65.12.4", port: 0}] end
       end
     end)
 
@@ -164,7 +164,7 @@ defmodule Wobserver.Web.Router.ApiTest do
           :custom
 
         :discovery_search ->
-          fn -> [%Wobserver.Util.Node.Remote{name: "remote", host: "85.65.12.4", port: 0}] end
+          fn -> [%Wobserver2.Util.Node.Remote{name: "remote", host: "85.65.12.4", port: 0}] end
       end
     end)
 
@@ -191,7 +191,7 @@ defmodule Wobserver.Web.Router.ApiTest do
   end
 
   test "unknown url returns 200 for known custom commands" do
-    Wobserver.register(:page, {"Test", :test, fn -> 5 end})
+    Wobserver2.register(:page, {"Test", :test, fn -> 5 end})
 
     conn = conn(:get, "/test")
 

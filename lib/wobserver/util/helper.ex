@@ -1,9 +1,9 @@
-defmodule Wobserver.Util.Helper do
+defmodule Wobserver2.Util.Helper do
   @moduledoc ~S"""
   Helper functions and JSON encoders.
   """
 
-  alias Poison.Encoder
+  alias Jason.Encoder
   alias Encoder.BitString
 
   defimpl Encoder, for: PID do

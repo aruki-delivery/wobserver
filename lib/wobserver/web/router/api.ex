@@ -1,30 +1,30 @@
-defmodule Wobserver.Web.Router.Api do
+defmodule Wobserver2.Web.Router.Api do
   @moduledoc ~S"""
   Main api router.
 
   Returns the following resources:
-    - `/about` => `Wobserver.about/0`.
-    - `/nodes` => `Wobserver.NodeDiscovery.discover/0`.
+    - `/about` => `Wobserver2.about/0`.
+    - `/nodes` => `Wobserver2.NodeDiscovery.discover/0`.
 
   Splits into the following paths:
-    - `/system`, for all system information, handled by `Wobserver.Web.Router.System`.
+    - `/system`, for all system information, handled by `Wobserver2.Web.Router.System`.
 
   All paths also include the option of entering a node name before the path.
   """
 
-  use Wobserver.Web.Router.Base
+  use Wobserver2.Web.Router.Base
 
   alias Plug.Router.Utils
 
-  alias Wobserver.Allocator
-  alias Wobserver.Page
-  alias Wobserver.Table
-  alias Wobserver.Util.Application
-  alias Wobserver.Util.Process
-  alias Wobserver.Util.Node.Discovery
-  alias Wobserver.Util.Node.Remote
-  alias Wobserver.Web.Router.Api
-  alias Wobserver.Web.Router.System
+  alias Wobserver2.Allocator
+  alias Wobserver2.Page
+  alias Wobserver2.Table
+  alias Wobserver2.Util.Application
+  alias Wobserver2.Util.Process
+  alias Wobserver2.Util.Node.Discovery
+  alias Wobserver2.Util.Node.Remote
+  alias Wobserver2.Web.Router.Api
+  alias Wobserver2.Web.Router.System
 
   match "/nodes" do
     Discovery.discover()
@@ -37,7 +37,7 @@ defmodule Wobserver.Web.Router.Api do
   end
 
   match "/about" do
-    Wobserver.about()
+    Wobserver2.about()
     |> send_json_resp(conn)
   end
 
@@ -66,7 +66,7 @@ defmodule Wobserver.Web.Router.Api do
   end
 
   get "/ports" do
-    Wobserver.Port.list()
+    Wobserver2.Port.list()
     |> send_json_resp(conn)
   end
 

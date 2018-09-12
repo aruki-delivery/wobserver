@@ -1,10 +1,10 @@
-defmodule Wobserver do
+defmodule Wobserver2 do
   @moduledoc """
   Web based metrics, monitoring, and observer.
   """
 
-  alias Wobserver.Page
-  alias Wobserver.Util.Metrics
+  alias Wobserver2.Page
+  alias Wobserver2.Util.Metrics
 
   @doc ~S"""
   Registers external application to integrate with `:wobserver`.
@@ -13,8 +13,8 @@ defmodule Wobserver do
   The `data` is usually passed on to a specialized function.
 
   The following types can be registered:
-    - `:page`, see: `Wobserver.Page.register/1`.
-    - `:metric`, see: `Wobserver.Util.Metrics.register/1`.
+    - `:page`, see: `Wobserver2.Page.register/1`.
+    - `:metric`, see: `Wobserver2.Util.Metrics.register/1`.
   """
   @spec register(type :: atom, data :: any) :: boolean
   def register(type, data)
@@ -23,7 +23,7 @@ defmodule Wobserver do
   def register(:metric, metric), do: Metrics.register(metric)
 
   @doc ~S"""
-  Information about Wobserver.
+  Information about Wobserver2.
 
   Returns a map containing:
     - `name`, name of `:wobserver`.
@@ -41,9 +41,9 @@ defmodule Wobserver do
       end
 
     %{
-      name: "Wobserver",
+      name: "Wobserver2",
       version: version,
-      description: "Web based metrics, monitoring, and observer.",
+      description: "Web based metrics, monitoring, and observer (Using Cowboy2)",
       license: %{
         name: "MIT",
         url: "license"
@@ -51,15 +51,15 @@ defmodule Wobserver do
       links: [
         %{
           name: "Hex",
-          url: "https://hex.pm/packages/wobserver"
+          url: "https://hex.pm/packages/wobserver2"
         },
         %{
           name: "Docs",
-          url: "https://hexdocs.pm/wobserver/"
+          url: "https://hexdocs.pm/wobserver2/"
         },
         %{
           name: "Github",
-          url: "https://github.com/shinyscorpion/wobserver"
+          url: "https://github.com/aruki-delivery/wobserver"
         }
       ]
     }

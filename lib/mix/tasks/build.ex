@@ -1,14 +1,14 @@
 defmodule Mix.Tasks.Build do
   @moduledoc ~S"""
-  Run through all the build steps for wobserver.
+  Run through all the build steps for Wobserver2.
   """
 
   use Mix.Task
 
-  @shortdoc "Run through all the build steps for wobserver."
+  @shortdoc "Run through all the build steps for Wobserver2."
 
   @doc ~S"""
-  Run through all the build steps for wobserver.
+  Run through all the build steps for Wobserver2.
 
   The following steps are performed:
     - `gulp` (deploy)
@@ -63,7 +63,7 @@ defmodule Mix.Tasks.Build do
     File.write!(
       "./lib/wobserver/assets.ex",
       """
-      defmodule Wobserver.Assets do
+      defmodule Wobserver2.Assets do
         @moduledoc false
 
         @lint false

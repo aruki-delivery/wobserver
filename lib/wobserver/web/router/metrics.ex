@@ -1,4 +1,4 @@
-defmodule Wobserver.Web.Router.Metrics do
+defmodule Wobserver2.Web.Router.Metrics do
   @moduledoc ~S"""
   Metrics router.
 
@@ -8,12 +8,12 @@ defmodule Wobserver.Web.Router.Metrics do
     - `/io` => IO metrics for the local node.
   """
 
-  use Wobserver.Web.Router.Base
+  use Wobserver2.Web.Router.Base
 
-  alias Wobserver.Util.Metrics
-  alias Wobserver.Util.Metrics.Formatter
-  alias Wobserver.Util.Node.Discovery
-  alias Wobserver.Util.Node.Remote
+  alias Wobserver2.Util.Metrics
+  alias Wobserver2.Util.Metrics.Formatter
+  alias Wobserver2.Util.Node.Discovery
+  alias Wobserver2.Util.Node.Remote
 
   match "/" do
     data =

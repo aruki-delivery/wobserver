@@ -1,4 +1,4 @@
-defmodule Wobserver.System.Memory do
+defmodule Wobserver2.System.Memory do
   @moduledoc ~S"""
   Handles memory information.
   """
@@ -25,7 +25,7 @@ defmodule Wobserver.System.Memory do
   @doc ~S"""
   Returns memory usage.
   """
-  @spec usage :: Wobserver.System.Memory.t()
+  @spec usage :: Wobserver2.System.Memory.t()
   def usage do
     mem = :erlang.memory()
 

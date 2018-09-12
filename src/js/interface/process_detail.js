@@ -15,7 +15,7 @@ class ProcessDetail {
   }
 
   show() {
-    this.wobserver.client.command_promise('process/' + this.process)
+    this.Wobserver2.client.command_promise('process/' + this.process)
     .then(e => {
       let process = e.data;
       if( process == 'error' ){

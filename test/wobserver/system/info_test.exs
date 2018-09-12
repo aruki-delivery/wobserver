@@ -1,13 +1,13 @@
-defmodule Wobserver.System.InfoTest do
+defmodule Wobserver2.System.InfoTest do
   use ExUnit.Case
 
   describe "architecture" do
     test "returns info struct" do
-      assert %Wobserver.System.Info{} = Wobserver.System.Info.architecture()
+      assert %Wobserver2.System.Info{} = Wobserver2.System.Info.architecture()
     end
 
     test "returns values" do
-      %Wobserver.System.Info{
+      %Wobserver2.System.Info{
         otp_release: otp_release,
         elixir_version: elixir_version,
         erts_version: erts_version,
@@ -18,7 +18,7 @@ defmodule Wobserver.System.InfoTest do
         thread_pool_size: thread_pool_size,
         wordsize_internal: wordsize_internal,
         wordsize_external: wordsize_external
-      } = Wobserver.System.Info.architecture()
+      } = Wobserver2.System.Info.architecture()
 
       assert is_binary(otp_release)
       assert is_binary(elixir_version)
@@ -41,7 +41,7 @@ defmodule Wobserver.System.InfoTest do
       schedulers: schedulers,
       schedulers_online: schedulers_online,
       schedulers_available: schedulers_available
-    } = Wobserver.System.Info.cpu()
+    } = Wobserver2.System.Info.cpu()
 
     assert is_integer(logical_processors)
     assert is_integer(logical_processors_online)

@@ -1,9 +1,9 @@
-defmodule Wobserver.Util.Metrics.Formatter do
+defmodule Wobserver2.Util.Metrics.Formatter do
   @moduledoc ~S"""
   Formatter.
   """
 
-  alias Wobserver.Util.Node.Discovery
+  alias Wobserver2.Util.Node.Discovery
 
   @doc ~S"""
   Format a set of `data` with a `label`.
@@ -65,7 +65,7 @@ defmodule Wobserver.Util.Metrics.Formatter do
       Application.get_env(
         :wobserver,
         :metric_format,
-        Wobserver.Util.Metrics.Prometheus
+        Wobserver2.Util.Metrics.Prometheus
       )
     )
   end
@@ -146,36 +146,36 @@ defmodule Wobserver.Util.Metrics.Formatter do
 
   Example:
   ```elixir
-  iex> Wobserver.Util.Metrics.Formatter.format_all [simple: 5]
+  iex> Wobserver2.Util.Metrics.Formatter.format_all [simple: 5]
   "simple{node=\"10.74.181.35\"} 5\n"
   ```
 
   ```elixir
-  iex> Wobserver.Util.Metrics.Formatter.format_all [simple: {5, :gauge}]
+  iex> Wobserver2.Util.Metrics.Formatter.format_all [simple: {5, :gauge}]
   "# TYPE simple gauge\nsimple{node=\"10.74.181.35\"} 5\n"
   ```
 
   ```elixir
-  iex> Wobserver.Util.Metrics.Formatter.format_all [simple: {5, :gauge, "Example desc."}]
+  iex> Wobserver2.Util.Metrics.Formatter.format_all [simple: {5, :gauge, "Example desc."}]
   "# HELP simple Example desc.\n
   # TYPE simple gauge\n
   simple{node=\"10.74.181.35\"} 5\n"
   ```
 
   ```elixir
-  iex> Wobserver.Util.Metrics.Formatter.format_all [simple: %{floor: 5, wall: 8}]
+  iex> Wobserver2.Util.Metrics.Formatter.format_all [simple: %{floor: 5, wall: 8}]
   "simple{node=\"10.74.181.35\",type=\"floor\"} 5\n
   simple{node=\"10.74.181.35\",type=\"wall\"} 8\n"
   ```
 
   ```elixir
-  iex> Wobserver.Util.Metrics.Formatter.format_all [simple: [floor: 5, wall: 8]]
+  iex> Wobserver2.Util.Metrics.Formatter.format_all [simple: [floor: 5, wall: 8]]
   "simple{node=\"10.74.181.35\",type=\"floor\"} 5\n
   simple{node=\"10.74.181.35\",type=\"wall\"} 8\n"
   ```
 
   ```elixir
-  iex> Wobserver.Util.Metrics.Formatter.format_all [simple: [{5, [location: :floor]}, {8, [location: :wall]}]]
+  iex> Wobserver2.Util.Metrics.Formatter.format_all [simple: [{5, [location: :floor]}, {8, [location: :wall]}]]
   "simple{node=\"10.74.181.35\",location=\"floor\"} 5\n
   simple{node=\"10.74.181.35\",location=\"wall\"} 8\n"
   ```
@@ -189,7 +189,7 @@ defmodule Wobserver.Util.Metrics.Formatter do
       Application.get_env(
         :wobserver,
         :metric_format,
-        Wobserver.Util.Metrics.Prometheus
+        Wobserver2.Util.Metrics.Prometheus
       )
     )
   end
@@ -222,7 +222,7 @@ defmodule Wobserver.Util.Metrics.Formatter do
       Application.get_env(
         :wobserver,
         :metric_format,
-        Wobserver.Util.Metrics.Prometheus
+        Wobserver2.Util.Metrics.Prometheus
       )
     )
   end

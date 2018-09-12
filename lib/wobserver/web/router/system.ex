@@ -1,18 +1,18 @@
-defmodule Wobserver.Web.Router.System do
+defmodule Wobserver2.Web.Router.System do
   @moduledoc ~S"""
   System router.
 
   Returns the following resources:
-    - `/` => `Wobserver.System.overview/0`.
-    - `/architecture` => `Wobserver.System.Info.architecture/0`.
-    - `/cpu` => `Wobserver.System.Info.cpu/0`.
-    - `/memory` => `Wobserver.System.Memory.usage/0`.
-    - `/statistics` => `Wobserver.System.Statistics.overview/0`.
+    - `/` => `Wobserver2.System.overview/0`.
+    - `/architecture` => `Wobserver2.System.Info.architecture/0`.
+    - `/cpu` => `Wobserver2.System.Info.cpu/0`.
+    - `/memory` => `Wobserver2.System.Memory.usage/0`.
+    - `/statistics` => `Wobserver2.System.Statistics.overview/0`.
   """
 
-  use Wobserver.Web.Router.Base
+  use Wobserver2.Web.Router.Base
 
-  alias Wobserver.System
+  alias Wobserver2.System
   alias System.Info
   alias System.Memory
   alias System.Statistics

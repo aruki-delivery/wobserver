@@ -1,7 +1,7 @@
-defmodule Wobserver.PortTest do
+defmodule Wobserver2.PortTest do
   use ExUnit.Case
 
-  alias Wobserver.Port
+  alias Wobserver2.Port
 
   describe "list" do
     test "returns a list" do

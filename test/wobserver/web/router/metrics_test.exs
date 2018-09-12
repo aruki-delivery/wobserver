@@ -1,10 +1,10 @@
-defmodule Wobserver.Web.Router.MetricsTest do
+defmodule Wobserver2.Web.Router.MetricsTest do
   use ExUnit.Case, async: false
   use Plug.Test
 
-  alias Wobserver.Util.Metrics.Formatter
-  alias Wobserver.Util.Node.Remote
-  alias Wobserver.Web.Router.Metrics
+  alias Wobserver2.Util.Metrics.Formatter
+  alias Wobserver2.Util.Node.Remote
+  alias Wobserver2.Web.Router.Metrics
 
   @opts Metrics.init([])
 
@@ -59,7 +59,7 @@ defmodule Wobserver.Web.Router.MetricsTest do
             ]
 
           :metric_format ->
-            Wobserver.Util.Metrics.Prometheus
+            Wobserver2.Util.Metrics.Prometheus
 
           :discovery ->
             :none
@@ -85,10 +85,10 @@ defmodule Wobserver.Web.Router.MetricsTest do
       :meck.expect(Application, :get_env, fn :wobserver, option, _ ->
         case option do
           :metrics ->
-            [generators: [&Wobserver.Web.Router.MetricsTest.test_generator/0]]
+            [generators: [&Wobserver2.Web.Router.MetricsTest.test_generator/0]]
 
           :metric_format ->
-            Wobserver.Util.Metrics.Prometheus
+            Wobserver2.Util.Metrics.Prometheus
 
           :discovery ->
             :none
@@ -125,7 +125,7 @@ defmodule Wobserver.Web.Router.MetricsTest do
             ]
 
           :metric_format ->
-            Wobserver.Util.Metrics.Prometheus
+            Wobserver2.Util.Metrics.Prometheus
 
           :discovery ->
             :none

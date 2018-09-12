@@ -1,7 +1,7 @@
-defmodule Wobserver.Util.TableTest do
+defmodule Wobserver2.Util.TableTest do
   use ExUnit.Case
 
-  alias Wobserver.Table
+  alias Wobserver2.Table
 
   describe "sanitize" do
     test "with integer" do

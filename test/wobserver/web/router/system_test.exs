@@ -1,8 +1,8 @@
-defmodule Wobserver.Web.Router.SystemTest do
+defmodule Wobserver2.Web.Router.SystemTest do
   use ExUnit.Case, async: true
   use Plug.Test
 
-  alias Wobserver.Web.Router.System
+  alias Wobserver2.Web.Router.System
 
   @opts System.init([])
 
@@ -19,7 +19,7 @@ defmodule Wobserver.Web.Router.SystemTest do
              "cpu" => _,
              "memory" => _,
              "statistics" => _
-           } = Poison.decode!(conn.resp_body)
+           } = Jason.decode!(conn.resp_body)
   end
 
   test "/architecture returns architecture" do
@@ -29,7 +29,7 @@ defmodule Wobserver.Web.Router.SystemTest do
 
     assert conn.state == :sent
     assert conn.status == 200
-    assert Poison.encode!(Wobserver.System.Info.architecture()) == conn.resp_body
+    assert Jason.encode!(Wobserver2.System.Info.architecture()) == conn.resp_body
   end
 
   test "/cpu returns cpu" do
@@ -39,7 +39,7 @@ defmodule Wobserver.Web.Router.SystemTest do
 
     assert conn.state == :sent
     assert conn.status == 200
-    assert Poison.encode!(Wobserver.System.Info.cpu()) == conn.resp_body
+    assert Jason.encode!(Wobserver2.System.Info.cpu()) == conn.resp_body
   end
 
   test "/memory returns memory" do
@@ -57,7 +57,7 @@ defmodule Wobserver.Web.Router.SystemTest do
              "ets" => _,
              "process" => _,
              "total" => _
-           } = Poison.decode!(conn.resp_body)
+           } = Jason.decode!(conn.resp_body)
   end
 
   test "/statistics returns statistics" do
@@ -75,7 +75,7 @@ defmodule Wobserver.Web.Router.SystemTest do
              "process_max" => _,
              "input" => _,
              "output" => _
-           } = Poison.decode!(conn.resp_body)
+           } = Jason.decode!(conn.resp_body)
   end
 
   test "unknown url returns 404" do

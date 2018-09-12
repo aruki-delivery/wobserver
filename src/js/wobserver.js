@@ -2,8 +2,8 @@ import {WobserverClient} from './wobserver_client';
 import {WobserverRender} from './wobserver_render';
 
 function setup_hooks(wobserver) {
-  wobserver.client.on_disconnect = () => WobserverRender.disconnect_popup(true);
-  wobserver.client.on_reconnect = () => WobserverRender.disconnect_popup(false);
+  Wobserver2.client.on_disconnect = () => WobserverRender.disconnect_popup(true);
+  Wobserver2.client.on_reconnect = () => WobserverRender.disconnect_popup(false);
 }
 
 class Wobserver {

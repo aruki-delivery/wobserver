@@ -1,9 +1,9 @@
-defmodule Wobserver.ApplicationTest do
+defmodule Wobserver2.ApplicationTest do
   use ExUnit.Case
 
   describe "port" do
     test "returns a default port" do
-      assert Wobserver.Application.port() > 0
+      assert Wobserver2.Application.port() > 0
     end
 
     test "returns a set port" do
@@ -21,7 +21,7 @@ defmodule Wobserver.ApplicationTest do
 
       on_exit(fn -> :meck.unload() end)
 
-      assert Wobserver.Application.port() == 8888
+      assert Wobserver2.Application.port() == 8888
     end
   end
 
@@ -41,9 +41,12 @@ defmodule Wobserver.ApplicationTest do
 
       on_exit(fn -> :meck.unload() end)
 
-      case Wobserver.Application.start(:normal, []) do
-        {:error, data} -> assert data == {:already_started, Process.whereis(Wobserver.Supervisor)}
-        data -> assert data == {:ok, Process.whereis(Wobserver.Supervisor)}
+      case Wobserver2.Application.start(:normal, []) do
+        {:error, data} ->
+          assert data == {:already_started, Process.whereis(Wobserver2.Supervisor)}
+
+        data ->
+          assert data == {:ok, Process.whereis(Wobserver2.Supervisor)}
       end
     end
 
@@ -62,7 +65,7 @@ defmodule Wobserver.ApplicationTest do
 
       on_exit(fn -> :meck.unload() end)
 
-      assert Wobserver.Application.start(:normal, []) ==
+      assert Wobserver2.Application.start(:normal, []) ==
                {:ok, Process.whereis(:wobserver_metrics)}
     end
   end

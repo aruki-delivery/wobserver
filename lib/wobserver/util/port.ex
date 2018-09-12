@@ -1,4 +1,4 @@
-defmodule Wobserver.Port do
+defmodule Wobserver2.Port do
   @moduledoc ~S"""
   Handles Ports and their information.
   """

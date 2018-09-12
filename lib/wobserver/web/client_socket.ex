@@ -1,4 +1,4 @@
-defmodule Wobserver.Web.ClientSocket do
+defmodule Wobserver2.Web.ClientSocket do
   @moduledoc ~S"""
   Low level WebSocket handler
 
@@ -6,10 +6,10 @@ defmodule Wobserver.Web.ClientSocket do
 
   Example:
     ```elixir
-    defmodule Wobserver.Web.Client do
-      use Wobserver.Web.ClientSocket
+    defmodule Wobserver2.Web.Client do
+      use Wobserver2.Web.ClientSocket
 
-      alias Wobserver.System
+      alias Wobserver2.System
 
       def client_init do
         {:ok, %{}}
@@ -28,9 +28,9 @@ defmodule Wobserver.Web.ClientSocket do
 
   require Logger
 
-  alias Wobserver.Util.Node.Discovery
-  alias Wobserver.Util.Node.Remote
-  alias Wobserver.Web.ClientSocket
+  alias Wobserver2.Util.Node.Discovery
+  alias Wobserver2.Util.Node.Remote
+  alias Wobserver2.Web.ClientSocket
 
   @typedoc "Response to browser."
   @type response ::
@@ -59,59 +59,38 @@ defmodule Wobserver.Web.ClientSocket do
 
   defmacro __using__(_) do
     quote do
-      import Wobserver.Web.ClientSocket, only: :functions
+      import Wobserver2.Web.ClientSocket, only: :functions
 
-      @security Application.get_env(:wobserver, :security, Wobserver.Security)
-
-      @behaviour :cowboy_websocket_handler
-      @behaviour Wobserver.Web.ClientSocket
+      @behaviour Wobserver2.Web.ClientSocket
 
       @timeout 60_000
-
-      # Callbacks
 
       ## Init / Shutdown
 
       @doc ~S"""
       Initialize the websocket connection.
 
-      The `req` cowboy request and `options` are passed, but unused in the setup.
+      The `req` cowboy request and `options` are passed
       """
-      @spec init(any, :cowboy_req.req(), any) :: {:upgrade, :protocol, :cowboy_websocket}
-      def init(_, req, _options) do
-        case @security.authenticated?(req) do
-          true -> {:upgrade, :protocol, :cowboy_websocket}
-          false -> {:ok, req, :cowboy_websocket}
-        end
+      @spec init(:cowboy_req.req(), any) :: {:cowboy_websocket, :cowboy_req.req(), any}
+      def init(req, options) do
+        {:cowboy_websocket, req, options}
       end
 
       @doc ~S"""
       Initialize the websocket connection by calling the implementing client.
 
-      The `req` cowboy request is passed along to the client.
-
-      The `type` and `options` are passed, but unused in the setup.
+      State is received
       """
-      @spec websocket_init(any, req :: :cowboy_req.req(), any) ::
-              {:ok, :cowboy_req.req(), any, non_neg_integer}
-      def websocket_init(_type, req, _options) do
+      @spec websocket_init(any) :: {:ok, any}
+      def websocket_init(state) do
         case client_init() do
-          {:ok, state, timeout} ->
-            {:ok, req, %{state: state, proxy: nil}, timeout}
+          {:ok, state, _timeout} ->
+            {:ok, %{state: state, proxy: nil}}
 
           {:ok, state} ->
-            {:ok, req, %{state: state, proxy: nil}, @timeout}
+            {:ok, %{state: state, proxy: nil}}
         end
-      end
-
-      @doc ~S"""
-      Gracefully handles websocked terminate.
-
-      The `reason`, `req` and `state` are ignored.
-      """
-      @spec websocket_terminate({atom, any}, :cowboy_req.req(), any) :: :ok
-      def websocket_terminate(_reason, _req, _state) do
-        :ok
       end
 
       ## Incoming from client / browser
@@ -119,46 +98,43 @@ defmodule Wobserver.Web.ClientSocket do
       Handles incoming messages from the websocket client.
 
       The `message` is parsed and passed on to the client, which responds with an update `state` and possible reply.
-
-      The `req` is ignored.
       """
       @spec websocket_handle(
               {:text, String.t()},
-              req :: :cowboy_req.req(),
               state :: any
             ) ::
-              {:reply, {:text, String.t()}, :cowboy_req.req(), any}
-              | {:ok, :cowboy_req.req(), any}
-      def websocket_handle(message, req, state)
+              {:reply, {:text, String.t()}, any}
+              | {:ok, any}
+      def websocket_handle(message, state)
 
-      def websocket_handle({:text, command}, req, state = %{proxy: nil}) do
+      def websocket_handle({:text, command}, state = %{proxy: nil}) do
         case parse_command(command) do
           {:setup_proxy, name} ->
-            setup_proxy(name, state, req)
+            setup_proxy(name, state)
 
           :nodes ->
             {:reply, :nodes, Discovery.discover(), state.state}
-            |> send_response(state, req)
+            |> send_response(state)
 
           parsed_command ->
             parsed_command
             |> client_handle(state.state)
-            |> send_response(state, req)
+            |> send_response(state)
         end
       end
 
-      def websocket_handle({:text, command}, req, state) do
+      def websocket_handle({:text, command}, state) do
         case parse_command(command) do
           {:setup_proxy, name} ->
-            setup_proxy(name, state, req)
+            setup_proxy(name, state)
 
           :nodes ->
             {:reply, :nodes, Discovery.discover(), state.state}
-            |> send_response(state, req)
+            |> send_response(state)
 
           parsed_command ->
             send(state.proxy, {:proxy, command})
-            {:ok, req, state}
+            {:ok, state}
         end
       end
 
@@ -171,27 +147,26 @@ defmodule Wobserver.Web.ClientSocket do
       The `req` is ignored.
       """
       @spec websocket_info(
-              message :: any,
-              req :: :cowboy_req.req(),
+              {timeout :: any, ref :: any, msg :: any},
               state :: any
             ) ::
-              {:reply, {:text, String.t()}, :cowboy_req.req(), any}
-              | {:ok, :cowboy_req.req(), any}
-      def websocket_info(message, req, state)
+              {:reply, {:text, String.t()}, any}
+              | {:ok, any}
+      def websocket_info(message, state)
 
-      def websocket_info({:proxy, data}, req, state) do
-        {:reply, {:text, data}, req, state}
+      def websocket_info({:proxy, data}, state) do
+        {:reply, {:text, data}, state}
       end
 
-      def websocket_info(:proxy_disconnect, req, state) do
-        {:reply, :proxy_disconnect, state.state, req}
-        |> send_response(%{state | proxy: nil}, req)
+      def websocket_info(:proxy_disconnect, state) do
+        {:reply, :proxy_disconnect, state.state}
+        |> send_response(%{state | proxy: nil})
       end
 
-      def websocket_info(message, req, state) do
+      def websocket_info(message, state) do
         message
         |> client_info(state.state)
-        |> send_response(state, req)
+        |> send_response(state)
       end
     end
   end
@@ -204,7 +179,7 @@ defmodule Wobserver.Web.ClientSocket do
   """
   @spec parse_command(payload :: String.t()) :: atom | {atom, any}
   def parse_command(payload) do
-    command_data = Poison.decode!(payload)
+    command_data = Jason.decode!(payload)
 
     command =
       case String.split(command_data["command"], "/") do
@@ -231,52 +206,51 @@ defmodule Wobserver.Web.ClientSocket do
             {:noreply, any}
             | {:reply, atom | list(atom), any}
             | {:reply, atom | list(atom), map | list | String.t() | nil, any},
-          socket_state :: map,
-          req :: :cowboy_req.req()
+          socket_state :: map
         ) ::
-          {:reply, {:text, String.t()}, :cowboy_req.req(), map}
-          | {:ok, :cowboy_req.req(), map}
-  def send_response(message, socket_state, req)
+          {:reply, {:text, String.t()}, map}
+          | {:ok, map}
+  def send_response(message, socket_state)
 
-  def send_response({:noreply, state}, socket_state, req) do
-    {:ok, req, %{socket_state | state: state}}
+  def send_response({:noreply, state}, socket_state) do
+    {:ok, %{socket_state | state: state}}
   end
 
-  def send_response({:reply, type, message, state}, socket_state, req) do
+  def send_response({:reply, type, message, state}, socket_state) do
     data = %{
       type: uniform_type(type),
       timestamp: :os.system_time(:seconds),
       data: message
     }
 
-    case Poison.encode(data) do
+    case Jason.encode(data) do
       {:ok, payload} ->
-        {:reply, {:text, payload}, req, %{socket_state | state: state}}
+        {:reply, {:text, payload}, %{socket_state | state: state}}
 
       {:error, error} ->
         Logger.warn(
-          "Wobserver.Web.ClientSocket: Can't send message, reason: #{inspect(error)}, message: #{
+          "Wobserver2.Web.ClientSocket: Can't send message, reason: #{inspect(error)}, message: #{
             inspect(message)
           }"
         )
 
-        {:ok, req, %{socket_state | state: state}}
+        {:ok, %{socket_state | state: state}}
     end
   end
 
-  def send_response({:reply, type, state}, socket_state, req) do
-    send_response({:reply, type, nil, state}, socket_state, req)
+  def send_response({:reply, type, state}, socket_state) do
+    send_response({:reply, type, nil, state}, socket_state)
   end
 
   @doc """
   Sets up a websocket proxy to a given `proxy`.
 
-  The `state` is modified to add in the new proxy, while `req` is returned untouched.
+  The `state` is modified to add in the new proxy
   """
-  @spec setup_proxy(proxy :: String.t(), state :: map, req :: :cowboy_req.req()) ::
-          {:reply, {:text, String.t()}, :cowboy_req.req(), map}
-          | {:ok, :cowboy_req.req(), map}
-  def setup_proxy(proxy, state, req) do
+  @spec setup_proxy(proxy :: String.t(), state :: map) ::
+          {:reply, {:text, String.t()}, map}
+          | {:ok, map}
+  def setup_proxy(proxy, state) do
     connected =
       proxy
       |> Discovery.find()
@@ -285,7 +259,7 @@ defmodule Wobserver.Web.ClientSocket do
     case connected do
       {:error, message} ->
         {:reply, :setup_proxy, %{error: message}, state.state}
-        |> send_response(state, req)
+        |> send_response(state)
 
       {pid, "local"} ->
         if state.proxy != nil, do: send(state.proxy, :disconnect)
@@ -298,7 +272,7 @@ defmodule Wobserver.Web.ClientSocket do
           %{success: "Connected to: #{name}", node: name},
           state.state
         }
-        |> send_response(%{state | proxy: pid}, req)
+        |> send_response(%{state | proxy: pid})
 
       {pid, name} ->
         {
@@ -307,7 +281,7 @@ defmodule Wobserver.Web.ClientSocket do
           %{success: "Connected to: #{name}", node: name},
           state.state
         }
-        |> send_response(%{state | proxy: pid}, req)
+        |> send_response(%{state | proxy: pid})
     end
   end
 

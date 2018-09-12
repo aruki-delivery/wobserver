@@ -1,4 +1,4 @@
-defmodule Wobserver.Mixfile do
+defmodule Wobserver2.Mixfile do
   use Mix.Project
 
   def project do
@@ -39,7 +39,7 @@ defmodule Wobserver.Mixfile do
       files: [
         # Elixir
         "lib/wobserver",
-        "lib/wobserver.ex",
+        "lib/Wobserver2.ex",
         "mix.exs",
         "README*",
         "LICENSE*"
@@ -54,38 +54,33 @@ defmodule Wobserver.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    # Specify extra applications you'll use from Erlang/Elixir
     [
       extra_applications: [
+        :eex,
         :logger,
-        :httpoison
+        :kernel,
+        :stdlib,
+        :ssl,
+        :inets,
+        :ranch,
+        :cowboy
       ],
-      mod: {Wobserver.Application, []}
+      mod: {Wobserver2.Application, []}
     ]
   end
 
-  # Dependencies can be Hex packages:
-  #
-  #   {:my_dep, "~> 0.3.0"}
-  #
-  # Or git/path repositories:
-  #
-  #   {:my_dep, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
-  #
-  # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:cowboy, "~> 1.1"},
-      {:credo, "~> 0.7", only: [:dev, :test]},
+      {:cowboy, "~> 2.4"},
+      {:credo, "~> 0.10", only: [:dev, :test]},
       {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
       {:ex_doc, "~> 0.15", only: :dev},
       {:excoveralls, "~> 0.6", only: :test},
-      {:httpoison, "~> 0.11 or ~> 0.12"},
       {:inch_ex, "~> 0.5", only: [:dev, :test]},
       {:meck, "~> 0.8.4", only: :test},
-      {:plug, "~> 1.3 or ~> 1.4"},
-      {:poison, "~> 2.0 or ~> 3.1"},
-      {:websocket_client, "~> 1.2"}
+      {:plug, "~> 1.6"},
+      {:jason, "~> 1.1"},
+      {:websocket_client, "~> 1.3"}
     ]
   end
 end

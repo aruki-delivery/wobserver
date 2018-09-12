@@ -1,8 +1,8 @@
-defmodule Wobserver.Util.HelperTest do
+defmodule Wobserver2.Util.HelperTest do
   use ExUnit.Case
 
-  alias Wobserver.Util.Helper
-  alias Wobserver.Util.Process
+  alias Wobserver2.Util.Helper
+  alias Wobserver2.Util.Process
 
   describe "string_to_module" do
     test "returns module name without dots" do
@@ -25,14 +25,14 @@ defmodule Wobserver.Util.HelperTest do
   describe "JSON implementations" do
     test "PID" do
       pid = Process.pid(33)
-      encoder = Poison.Encoder.impl_for(pid)
+      encoder = Jason.encode!(pid)
 
       assert encoder.encode(pid, []) == [34, ["#PID<0.33.0>"], 34]
     end
 
     test "Port" do
       port = :erlang.ports() |> List.first()
-      encoder = Poison.Encoder.impl_for(port)
+      encoder = Jason.encode!(port)
 
       assert encoder.encode(port, []) == [34, ["#Port<0.0>"], 34]
     end

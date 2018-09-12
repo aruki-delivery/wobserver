@@ -1,7 +1,7 @@
-defmodule Wobserver.System.SchedulerTest do
+defmodule Wobserver2.System.SchedulerTest do
   use ExUnit.Case
 
-  alias Wobserver.System.Scheduler
+  alias Wobserver2.System.Scheduler
 
   test "returns results as list" do
     assert is_list(Scheduler.utilization())

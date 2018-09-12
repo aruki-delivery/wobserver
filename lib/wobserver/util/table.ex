@@ -1,9 +1,9 @@
-defmodule Wobserver.Table do
+defmodule Wobserver2.Table do
   @moduledoc ~S"""
   Table (ets) information and listing.
   """
 
-  import Wobserver.Util.Helper, only: [string_to_module: 1]
+  import Wobserver2.Util.Helper, only: [string_to_module: 1]
 
   @doc ~S"""
   Lists all tables with basic information.
@@ -52,19 +52,19 @@ defmodule Wobserver.Table do
 
   Example:
   ```bash
-  iex> Wobserver.Table.sanitize :code
+  iex> Wobserver2.Table.sanitize :code
   :code
   ```
   ```bash
-  iex> Wobserver.Table.sanitize 1
+  iex> Wobserver2.Table.sanitize 1
   1
   ```
   ```bash
-  iex> Wobserver.Table.sanitize "code"
+  iex> Wobserver2.Table.sanitize "code"
   :code
   ```
   ```bash
-  iex> Wobserver.Table.sanitize "1"
+  iex> Wobserver2.Table.sanitize "1"
   1
   ```
   """

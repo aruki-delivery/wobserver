@@ -1,13 +1,13 @@
-defmodule Wobserver.Util.Node.Remote do
+defmodule Wobserver2.Util.Node.Remote do
   @moduledoc ~S"""
   Remote node.
 
   TODO: Needs config.
   """
 
-  alias Wobserver.Web.ClientProxy
-  alias Wobserver.Util.Metrics
-  alias Wobserver.Util.Metrics.Formatter
+  alias Wobserver2.Web.ClientProxy
+  alias Wobserver2.Util.Metrics
+  alias Wobserver2.Util.Metrics.Formatter
 
   @typedoc "Remote node information."
   @type t :: %__MODULE__{
@@ -28,13 +28,14 @@ defmodule Wobserver.Util.Node.Remote do
 
   @spec call(map, endpoint :: String.t()) :: String.t() | :error
   defp call(%{host: host, port: port}, endpoint) do
-    request =
+    uri =
       %URI{scheme: "http", host: host, port: port, path: endpoint}
       |> URI.to_string()
-      |> HTTPoison.get()
+      |> String.to_charlist()
 
-    case request do
-      {:ok, %{body: result}} -> result
+    :httpc.request(:get, {uri, []}, [], [])
+    |> case do
+      {:ok, {{_, 200, _}, _headers, body}} -> body
       _ -> :error
     end
   end
